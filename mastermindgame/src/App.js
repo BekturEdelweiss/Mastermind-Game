@@ -45,21 +45,7 @@ class App extends React.Component {
   };
 
   handleGuessClick = () => {
-    // const updatedInput = this.state.guessInputs.userInput;
-
-    // console.log("here:", updatedInput, this.state.secretCode);
-
-    // for (let i = 0; i < updatedInput.length; i++) {
-    //   let newValueMatch = this.state.guessInputs.valueMatch;
-    //   if (updatedInput[i] === this.state.secretCode[i]) {
-    //     newValueMatch += 1;
-    //   }
-    //   this.setState({ valueMatch: newValueMatch });
-    // }
-    // console.log("look here:", this.state.guessInputs.valueMatch);
-
     const { guessInputs } = this.state;
-
     const newGuessInputs = Object.assign({}, guessInputs);
 
     for (let i = 0; i < newGuessInputs.userInput.length; i++) {
@@ -69,13 +55,22 @@ class App extends React.Component {
       }
       this.setState({ guessInputs: newGuessInputs });
     }
+
+    const copyOfSecretCode = this.state.secretCode;
+
+    newGuessInputs.userInput.forEach((num, i) => {
+      if (copyOfSecretCode.includes(num)) {
+        newGuessInputs.valueMatch++;
+        copyOfSecretCode[copyOfSecretCode.indexOf(num)] = null;
+      }
+    });
   };
 
   render() {
     console.log("secretCode", this.state.secretCode);
     console.log("guessInputs", this.state.guessInputs.userInput);
-    console.log("look here:", this.state.guessInputs.indexMatch);
-    console.log("state", this.state);
+    console.log("LOOK INDEX:", this.state.guessInputs.indexMatch);
+    console.log("LOOK VALUE:", this.state.guessInputs.valueMatch);
 
     return (
       <div className="App">
@@ -95,12 +90,14 @@ class App extends React.Component {
           <span className="dot"></span>
           <span className="dot"></span>
         </div>
+        <div className="sideScore">
+          {this.state.guessInputs.indexMatch} <br />
+          {this.state.guessInputs.valueMatch}
+        </div>
         <div className="guessed-circles">
-          {/* {this.state.guessInputs.userInput.map(num) => {
-            return (
-              <span className="dot"></span>
-            )
-          }} */}
+          {this.state.guessInputs.userInput.map((num, i) => {
+            return <span key={i}>{num}</span>;
+          })}
         </div>
         <div className="coloredButton">
           <button className="" onClick={() => this.handleClick("0")}>
