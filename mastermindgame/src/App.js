@@ -48,20 +48,18 @@ class App extends React.Component {
     const { guessInputs } = this.state;
     const newGuessInputs = Object.assign({}, guessInputs);
 
-    for (let i = 0; i < newGuessInputs.userInput.length; i++) {
-      // let newValueMatch = this.state.guessInputs.valueMatch;
-      if (newGuessInputs.userInput[i] === this.state.secretCode[i]) {
-        newGuessInputs.indexMatch++;
+    if (newGuessInputs.userInput.length === 4)
+      for (let i = 0; i < newGuessInputs.userInput.length; i++) {
+        if (newGuessInputs.userInput[i] === this.state.secretCode[i]) {
+          newGuessInputs.indexMatch++;
+        }
+        this.setState({ guessInputs: newGuessInputs });
       }
-      this.setState({ guessInputs: newGuessInputs });
-    }
 
-    const copyOfSecretCode = this.state.secretCode;
-
-    newGuessInputs.userInput.forEach((num, i) => {
-      if (copyOfSecretCode.includes(num)) {
+    this.state.secretCode.forEach((num, i) => {
+      if (newGuessInputs.userInput.includes(num)) {
         newGuessInputs.valueMatch++;
-        copyOfSecretCode[copyOfSecretCode.indexOf(num)] = null;
+        newGuessInputs.userInput[newGuessInputs.userInput.indexOf(num)] = null;
       }
     });
   };
