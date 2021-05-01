@@ -49,9 +49,8 @@ class App extends React.Component {
     } else {
       return;
     }
-
-    if (guessInputs.userInput.length === 4) {
-      guessInputs.userInput.forEach((num, i) => {
+    if (newuserInputs.length === 4) {
+      newuserInputs.forEach((num, i) => {
         if (copySecretCode.includes(num)) {
           newGuessInputs.valueMatch++;
           copySecretCode[copySecretCode.indexOf(num)] = null;
@@ -59,8 +58,8 @@ class App extends React.Component {
       });
       this.setState({ guessInputs: newGuessInputs });
 
-      for (let i = 0; i < newGuessInputs.userInput.length; i++) {
-        if (newGuessInputs.userInput[i] === this.state.secretCode[i]) {
+      for (let i = 0; i < newuserInputs.length; i++) {
+        if (newuserInputs[i] === this.state.secretCode[i]) {
           newGuessInputs.indexMatch++;
         }
         this.setState({ guessInputs: newGuessInputs });
@@ -68,10 +67,19 @@ class App extends React.Component {
     }
   };
 
-  handleGuessClick = () => {
+  handleCheckClick = () => {
     const { guessInputs, history } = this.state;
     let numberOfAttempts = this.state.attempts;
     numberOfAttempts++;
+
+    if (numberOfAttempts === 10 && this.state.guessInputs.valueMatch !== 4) {
+      return alert("You lost!");
+    } else if (
+      this.state.guessInputs.valueMatch === 4 &&
+      this.state.guessInputs.indexMatch === 4
+    ) {
+      return alert("You won!");
+    }
 
     let resetObj = {
       userInput: [],
@@ -81,19 +89,12 @@ class App extends React.Component {
 
     let newHistory = [...history, guessInputs];
 
-    this.setState({
-      guessInputs: resetObj,
-      history: newHistory,
-      attempts: numberOfAttempts,
-    });
-
-    if (numberOfAttempts === 10 && this.state.guessInputs.valueMatch !== 4) {
-      return alert("You lost!");
-    } else if (
-      this.state.guessInputs.valueMatch === 4 &&
-      this.state.guessInputs.indexMatch === 4
-    ) {
-      return alert("You won!");
+    if (guessInputs.userInput.length === 4) {
+      this.setState({
+        guessInputs: resetObj,
+        history: newHistory,
+        attempts: numberOfAttempts,
+      });
     }
   };
 
@@ -118,6 +119,18 @@ class App extends React.Component {
     });
   };
 
+  handleClearClick = () => {
+    let resetObj = {
+      userInput: [],
+      indexMatch: 0,
+      valueMatch: 0,
+    };
+
+    this.setState({
+      guessInputs: resetObj,
+    });
+  };
+
   render() {
     console.log("secretCode", this.state.secretCode);
     console.log("guessInputs", this.state.guessInputs.userInput);
@@ -135,9 +148,11 @@ class App extends React.Component {
           >
             New Game
           </button>
-          <button className="reset">Reset</button>
-          <button className="" onClick={() => this.handleGuessClick()}>
-            Guess
+          <button className="" onClick={() => this.handleClearClick()}>
+            Clear
+          </button>
+          <button className="" onClick={() => this.handleCheckClick()}>
+            Check
           </button>
         </div>
         <div className="hidden-circles">
@@ -146,10 +161,7 @@ class App extends React.Component {
           <span className="dot"></span>
           <span className="dot"></span>
         </div>
-        {/* <div className="sideScore">
-          {this.state.guessInputs.indexMatch} <br />
-          {this.state.guessInputs.valueMatch}
-        </div> */}
+
         <div className="guessed-circles">
           {this.state.history.map((obj, i) => {
             return (
