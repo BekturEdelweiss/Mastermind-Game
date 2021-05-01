@@ -3,7 +3,6 @@ import React from "react";
 import axios from "axios";
 // import { connect } from "react-redux";
 // import { fetchNumbersfromApi } from "./redux/numbers";
-
 class App extends React.Component {
   constructor() {
     super();
@@ -13,18 +12,17 @@ class App extends React.Component {
         indexMatch: 0,
         valueMatch: 0,
       },
-      // sideScores: [],
+      history: [],
       secretCode: [],
     };
   }
+
   async componentDidMount() {
     try {
       const res = await axios.get(
         "https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new"
       );
-
       const result = res.data.split("").filter((el) => el !== "\n");
-
       this.setState({
         secretCode: result,
       });
@@ -34,42 +32,58 @@ class App extends React.Component {
   }
 
   handleClick = (num) => {
-    const { guessInputs } = this.state;
+    const { guessInputs, secretCode } = this.state;
     let newGuessInputs = Object.assign({}, guessInputs);
     let newuserInputs = newGuessInputs.userInput;
+    let copySecretCode = [...secretCode];
 
     if (guessInputs.userInput.length < 4) {
       newuserInputs.push(num);
       this.setState({ guessInputs: newGuessInputs });
+      //   console.log('newGuessInputs inside 1st', newGuessInputs);
+    } else {
+      return;
     }
-  };
 
-  handleGuessClick = () => {
-    const { guessInputs } = this.state;
-    const newGuessInputs = Object.assign({}, guessInputs);
+    if (guessInputs.userInput.length === 4) {
+      guessInputs.userInput.forEach((num, i) => {
+        if (copySecretCode.includes(num)) {
+          newGuessInputs.valueMatch++;
+          copySecretCode[copySecretCode.indexOf(num)] = null;
+        }
+      });
+      this.setState({ guessInputs: newGuessInputs });
+      //   console.log('newGuessInputs inside', newGuessInputs);
 
-    if (newGuessInputs.userInput.length === 4)
       for (let i = 0; i < newGuessInputs.userInput.length; i++) {
         if (newGuessInputs.userInput[i] === this.state.secretCode[i]) {
           newGuessInputs.indexMatch++;
         }
         this.setState({ guessInputs: newGuessInputs });
       }
+    }
+  };
 
-    this.state.secretCode.forEach((num, i) => {
-      if (newGuessInputs.userInput.includes(num)) {
-        newGuessInputs.valueMatch++;
-        newGuessInputs.userInput[newGuessInputs.userInput.indexOf(num)] = null;
-      }
-    });
+  handleGuessClick = () => {
+    const { guessInputs, history } = this.state;
+
+    let resetObj = {
+      userInput: [],
+      indexMatch: 0,
+      valueMatch: 0,
+    };
+
+    let newHistory = [...history, guessInputs];
+
+    this.setState({ guessInputs: resetObj, history: newHistory });
   };
 
   render() {
     console.log("secretCode", this.state.secretCode);
     console.log("guessInputs", this.state.guessInputs.userInput);
-    console.log("LOOK INDEX:", this.state.guessInputs.indexMatch);
-    console.log("LOOK VALUE:", this.state.guessInputs.valueMatch);
-
+    // console.log('LOOK INDEX:', this.state.guessInputs.indexMatch);
+    // console.log('LOOK VALUE:', this.state.guessInputs.valueMatch);
+    console.log(`history`, this.state.history);
     return (
       <div className="App">
         <header>
@@ -88,13 +102,21 @@ class App extends React.Component {
           <span className="dot"></span>
           <span className="dot"></span>
         </div>
-        <div className="sideScore">
+        {/* <div className="sideScore">
           {this.state.guessInputs.indexMatch} <br />
           {this.state.guessInputs.valueMatch}
-        </div>
+        </div> */}
         <div className="guessed-circles">
-          {this.state.guessInputs.userInput.map((num, i) => {
-            return <span key={i}>{num}</span>;
+          {this.state.history.map((obj, i) => {
+            return (
+              <p key={i}>
+                {obj.userInput.map((num, idx) => {
+                  return <span key={idx}>{num}</span>;
+                })}
+                <span style={{ color: "red" }}>{obj.valueMatch}</span>
+                <span style={{ color: "blue" }}>{obj.indexMatch}</span>
+              </p>
+            );
           })}
         </div>
         <div className="coloredButton">
@@ -127,13 +149,11 @@ class App extends React.Component {
     );
   }
 }
-
 // const mapStateToProps = (state) => {
 //   return {
 //     secretCode: state.secretCode,
 //   };
 // };
-
 // const mapDispatchToProps = (dispatch) => {
 //   return {
 //     // dispatching plain actions
