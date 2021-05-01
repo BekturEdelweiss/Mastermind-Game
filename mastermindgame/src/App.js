@@ -3,6 +3,7 @@ import React from "react";
 import axios from "axios";
 // import { connect } from "react-redux";
 // import { fetchNumbersfromApi } from "./redux/numbers";
+
 class App extends React.Component {
   constructor() {
     super();
@@ -12,12 +13,13 @@ class App extends React.Component {
         indexMatch: 0,
         valueMatch: 0,
       },
+      attempts: 0,
       history: [],
       secretCode: [],
     };
   }
 
-  async componentDidMount() {
+  async fetchData() {
     try {
       const res = await axios.get(
         "https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new"
@@ -31,6 +33,10 @@ class App extends React.Component {
     }
   }
 
+  async componentDidMount() {
+    this.fetchData();
+  }
+
   handleClick = (num) => {
     const { guessInputs, secretCode } = this.state;
     let newGuessInputs = Object.assign({}, guessInputs);
@@ -40,7 +46,6 @@ class App extends React.Component {
     if (guessInputs.userInput.length < 4) {
       newuserInputs.push(num);
       this.setState({ guessInputs: newGuessInputs });
-      //   console.log('newGuessInputs inside 1st', newGuessInputs);
     } else {
       return;
     }
@@ -53,7 +58,6 @@ class App extends React.Component {
         }
       });
       this.setState({ guessInputs: newGuessInputs });
-      //   console.log('newGuessInputs inside', newGuessInputs);
 
       for (let i = 0; i < newGuessInputs.userInput.length; i++) {
         if (newGuessInputs.userInput[i] === this.state.secretCode[i]) {
@@ -66,6 +70,8 @@ class App extends React.Component {
 
   handleGuessClick = () => {
     const { guessInputs, history } = this.state;
+    let numberOfAttempts = this.state.attempts;
+    numberOfAttempts++;
 
     let resetObj = {
       userInput: [],
@@ -75,14 +81,47 @@ class App extends React.Component {
 
     let newHistory = [...history, guessInputs];
 
-    this.setState({ guessInputs: resetObj, history: newHistory });
+    this.setState({
+      guessInputs: resetObj,
+      history: newHistory,
+      attempts: numberOfAttempts,
+    });
+
+    if (numberOfAttempts === 10 && this.state.guessInputs.valueMatch !== 4) {
+      return alert("You lost!");
+    } else if (
+      this.state.guessInputs.valueMatch === 4 &&
+      this.state.guessInputs.indexMatch === 4
+    ) {
+      return alert("You won!");
+    }
+  };
+
+  handleNewGameClick = () => {
+    let newSecretCode = this.fetchData();
+
+    let newGameState = {
+      guessInputs: {
+        userInput: [],
+        indexMatch: 0,
+        valueMatch: 0,
+      },
+      history: [],
+      attempts: 0,
+    };
+
+    this.setState({
+      guessInputs: newGameState.guessInputs,
+      history: newGameState.history,
+      secretCode: newSecretCode,
+      attempts: newGameState.attempts,
+    });
   };
 
   render() {
     console.log("secretCode", this.state.secretCode);
     console.log("guessInputs", this.state.guessInputs.userInput);
-    // console.log('LOOK INDEX:', this.state.guessInputs.indexMatch);
-    // console.log('LOOK VALUE:', this.state.guessInputs.valueMatch);
+    console.log("ATTEMPTS:", this.state.attempts);
     console.log(`history`, this.state.history);
     return (
       <div className="App">
@@ -90,7 +129,12 @@ class App extends React.Component {
           <h2>Mastermind Game</h2>
         </header>
         <div className="menu">
-          <button className="new-game">New Game</button>
+          <button
+            className="new-game"
+            onClick={() => this.handleNewGameClick()}
+          >
+            New Game
+          </button>
           <button className="reset">Reset</button>
           <button className="" onClick={() => this.handleGuessClick()}>
             Guess
