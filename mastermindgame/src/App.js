@@ -3,6 +3,7 @@ import React from "react";
 import axios from "axios";
 // import { connect } from "react-redux";
 // import { fetchNumbersfromApi } from "./redux/numbers";
+//import Buttons from "./Buttons";
 
 class App extends React.Component {
   constructor() {
@@ -16,6 +17,57 @@ class App extends React.Component {
       attempts: 0,
       history: [],
       secretCode: [],
+
+      colorMap: {
+        0: (
+          <i
+            className="fas fa-bomb"
+            style={{ color: "blue", fontSize: "48px" }}
+          ></i>
+        ),
+        1: (
+          <i
+            className="fas fa-bomb"
+            style={{ color: "green", fontSize: "48px" }}
+          ></i>
+        ),
+        2: (
+          <i
+            className="fas fa-bomb"
+            style={{ color: "yellow", fontSize: "48px" }}
+          ></i>
+        ),
+        3: (
+          <i
+            className="fas fa-bomb"
+            style={{ color: "red", fontSize: "48px" }}
+          ></i>
+        ),
+        4: (
+          <i
+            className="fas fa-bomb"
+            style={{ color: "grey", fontSize: "48px" }}
+          ></i>
+        ),
+        5: (
+          <i
+            className="fas fa-bomb"
+            style={{ color: "orange", fontSize: "48px" }}
+          ></i>
+        ),
+        6: (
+          <i
+            className="fas fa-bomb"
+            style={{ color: "purple", fontSize: "48px" }}
+          ></i>
+        ),
+        7: (
+          <i
+            className="fas fa-bomb"
+            style={{ color: "brown", fontSize: "48px" }}
+          ></i>
+        ),
+      },
     };
   }
 
@@ -81,25 +133,19 @@ class App extends React.Component {
       return alert("You won!");
     }
 
-    let resetObj = {
-      userInput: [],
-      indexMatch: 0,
-      valueMatch: 0,
-    };
-
     let newHistory = [...history, guessInputs];
 
     if (guessInputs.userInput.length === 4) {
       this.setState({
-        guessInputs: resetObj,
         history: newHistory,
         attempts: numberOfAttempts,
       });
+      this.handleClearClick();
     }
   };
 
   handleNewGameClick = () => {
-    let newSecretCode = this.fetchData();
+    this.fetchData();
 
     let newGameState = {
       guessInputs: {
@@ -114,7 +160,6 @@ class App extends React.Component {
     this.setState({
       guessInputs: newGameState.guessInputs,
       history: newGameState.history,
-      secretCode: newSecretCode,
       attempts: newGameState.attempts,
     });
   };
@@ -125,7 +170,6 @@ class App extends React.Component {
       indexMatch: 0,
       valueMatch: 0,
     };
-
     this.setState({
       guessInputs: resetObj,
     });
@@ -155,19 +199,13 @@ class App extends React.Component {
             Check
           </button>
         </div>
-        <div className="hidden-circles">
-          <span className="dot"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>
-        </div>
 
         <div className="guessed-circles">
           {this.state.history.map((obj, i) => {
             return (
               <p key={i}>
                 {obj.userInput.map((num, idx) => {
-                  return <span key={idx}>{num}</span>;
+                  return <span key={idx}>{this.state.colorMap[num]}</span>;
                 })}
                 <span style={{ color: "red" }}>{obj.valueMatch}</span>
                 <span style={{ color: "blue" }}>{obj.indexMatch}</span>
@@ -175,8 +213,18 @@ class App extends React.Component {
             );
           })}
         </div>
+
+        <div className="guessed-circles">
+          {this.state.guessInputs.userInput.map((num, i) => {
+            return <span key={i}>{this.state.colorMap[num]}</span>;
+          })}
+        </div>
+
         <div className="coloredButton">
-          <button className="" onClick={() => this.handleClick("0")}>
+          <button
+            style={{ background: "blue" }}
+            onClick={() => this.handleClick("0")}
+          >
             zero
           </button>
           <button className="" onClick={() => this.handleClick("1")}>
@@ -201,6 +249,7 @@ class App extends React.Component {
             seven
           </button>
         </div>
+        {/* <Buttons handleClick={this.handleClick} /> */}
       </div>
     );
   }
