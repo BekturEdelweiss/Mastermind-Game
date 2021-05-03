@@ -22,49 +22,49 @@ class App extends React.Component {
         0: (
           <i
             className="fas fa-bomb"
-            style={{ color: "blue", fontSize: "48px" }}
+            style={{ color: "blue", fontSize: "40px" }}
           ></i>
         ),
         1: (
           <i
             className="fas fa-bomb"
-            style={{ color: "green", fontSize: "48px" }}
+            style={{ color: "green", fontSize: "40px" }}
           ></i>
         ),
         2: (
           <i
             className="fas fa-bomb"
-            style={{ color: "yellow", fontSize: "48px" }}
+            style={{ color: "yellow", fontSize: "40px" }}
           ></i>
         ),
         3: (
           <i
             className="fas fa-bomb"
-            style={{ color: "red", fontSize: "48px" }}
+            style={{ color: "red", fontSize: "40px" }}
           ></i>
         ),
         4: (
           <i
             className="fas fa-bomb"
-            style={{ color: "grey", fontSize: "48px" }}
+            style={{ color: "grey", fontSize: "40px" }}
           ></i>
         ),
         5: (
           <i
             className="fas fa-bomb"
-            style={{ color: "orange", fontSize: "48px" }}
+            style={{ color: "orange", fontSize: "40px" }}
           ></i>
         ),
         6: (
           <i
             className="fas fa-bomb"
-            style={{ color: "purple", fontSize: "48px" }}
+            style={{ color: "purple", fontSize: "40px" }}
           ></i>
         ),
         7: (
           <i
             className="fas fa-bomb"
-            style={{ color: "brown", fontSize: "48px" }}
+            style={{ color: "brown", fontSize: "40px" }}
           ></i>
         ),
       },
@@ -182,8 +182,8 @@ class App extends React.Component {
     console.log(`history`, this.state.history);
     return (
       <div className="App">
-        <header>
-          <h2>Mastermind Game</h2>
+        <header className="menu">
+          <h2>DE-MINE A BRIDGE</h2>
         </header>
         <div className="menu">
           <button
@@ -196,8 +196,14 @@ class App extends React.Component {
             Clear
           </button>
           <button className="" onClick={() => this.handleCheckClick()}>
-            Check
+            De-mine
           </button>
+        </div>
+        <div className="menu">
+          <p style={{ color: "DarkGreen" }}>
+            {" "}
+            SAPPER, YOU HAVE {10 - this.state.attempts} ATTEMPTS LEFT
+          </p>
         </div>
 
         <div className="guessed-circles">
@@ -207,8 +213,12 @@ class App extends React.Component {
                 {obj.userInput.map((num, idx) => {
                   return <span key={idx}>{this.state.colorMap[num]}</span>;
                 })}
-                <span style={{ color: "red" }}>{obj.valueMatch}</span>
-                <span style={{ color: "blue" }}>{obj.indexMatch}</span>
+                <span className="scores" style={{ color: "red" }}>
+                  {obj.valueMatch}
+                </span>
+                <span className="scores" style={{ color: "blue" }}>
+                  {obj.indexMatch}
+                </span>
               </p>
             );
           })}
