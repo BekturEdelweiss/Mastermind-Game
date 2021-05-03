@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 import axios from "axios";
+import swal from "sweetalert";
 // import { connect } from "react-redux";
 // import { fetchNumbersfromApi } from "./redux/numbers";
 //import Buttons from "./Buttons";
@@ -46,7 +47,7 @@ class App extends React.Component {
         4: (
           <i
             className="fas fa-bomb"
-            style={{ color: "grey", fontSize: "40px" }}
+            style={{ color: "black", fontSize: "40px" }}
           ></i>
         ),
         5: (
@@ -125,12 +126,22 @@ class App extends React.Component {
     numberOfAttempts++;
 
     if (numberOfAttempts === 10 && this.state.guessInputs.valueMatch !== 4) {
-      return alert("You lost!");
+      return swal({
+        title: "The bridge has exploded!",
+        text: "You let us down, Sapper...",
+        icon: "error",
+        button: "I'm sorry, sir",
+      });
     } else if (
       this.state.guessInputs.valueMatch === 4 &&
       this.state.guessInputs.indexMatch === 4
     ) {
-      return alert("You won!");
+      return swal({
+        title: "The bridge is de-mined.",
+        text: "Congratulations, Sapper!",
+        icon: "success",
+        button: "Glad to serve!",
+      });
     }
 
     let newHistory = [...history, guessInputs];
@@ -145,6 +156,14 @@ class App extends React.Component {
   };
 
   handleNewGameClick = () => {
+    swal({
+      title: "Salute, Sapper! Here is the deal:",
+      text:
+        "Our enemies have mined our bridge. As a military engineer, you have to de-mine the bridge. Try to guess the correct color and the correct order of the bombs. You have a total of 10 attemps. FEEDBACK: The RED number shows how many correct colors you have guessed and the BLUE number will show how many correct colors and their correct locations you have guessed. Are you ready?",
+      dangerMode: true,
+      button: "Yes, sir!",
+    });
+
     this.fetchData();
 
     let newGameState = {
@@ -253,7 +272,7 @@ class App extends React.Component {
           ></button>
           <button
             className="buttons"
-            style={{ background: "grey" }}
+            style={{ background: "black" }}
             onClick={() => this.handleClick("4")}
           ></button>
           <button

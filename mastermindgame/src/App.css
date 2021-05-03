@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   /* background-color: white; */
-  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/07064f06-a11c-4d2b-af70-31d4abb11a48/dao9n6s-2029f539-8898-43b6-afc4-abb25c339fe5.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzA3MDY0ZjA2LWExMWMtNGQyYi1hZjcwLTMxZDRhYmIxMWE0OFwvZGFvOW42cy0yMDI5ZjUzOS04ODk4LTQzYjYtYWZjNC1hYmIyNWMzMzlmZTUuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.IZqpCEkfoys2Jt87nHOUqDnF8AD40OLyyb4IRfMqsfg");
+  background-image: url("https://awoiaf.westeros.org/images/b/b5/Bridgeofskullsjcbarquet.jpg");
   width: 700px;
   border: 5px solid gray;
   padding-bottom: 50px;
@@ -26,6 +26,10 @@ header {
   background-color: seagreen;
   min-width: 100px;
   font-family: "Copperplate";
+}
+
+body {
+  background-color: lightgray;
 }
 
 /* .hidden-circles {
@@ -84,7 +88,7 @@ header {
 } */
 
 .scores {
-  background-color: lightgreen;
+  background-color: whitesmoke;
   font-size: 25px;
   font-family: "Copperplate";
   border: 2px solid gray;
