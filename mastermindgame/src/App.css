@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  /* background-color: white; */
   background-image: url("https://awoiaf.westeros.org/images/b/b5/Bridgeofskullsjcbarquet.jpg");
   width: 700px;
   border: 5px solid gray;
@@ -32,31 +31,12 @@ body {
   background-color: lightgray;
 }
 
-/* .hidden-circles {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 0 200px;
-} */
-/* .dot {
-  height: 30px;
-  width: 30px;
-  background-color: #bbb;
-  border-radius: 50%;
-} */
-
 .coloredButton {
   position: absolute;
   bottom: 10px;
   right: 10px;
   left: 10px;
 }
-
-/* .circle {
-  height: 50px;
-  width: 50px;
-  background-color: red;
-  border-radius: 50%;
-} */
 
 .buttons {
   padding: 15px 25px;
@@ -71,21 +51,11 @@ body {
   box-shadow: 0 9px #999;
 }
 
-/* .buttons:hover {
-  background-color: #3e8e41;
-} */
-
 .buttons:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-
-/* .fas {
-  padding: 1px;
-  background-color: lightgray;
-  border: 2px solid gray;
-} */
 
 .scores {
   background-color: whitesmoke;
