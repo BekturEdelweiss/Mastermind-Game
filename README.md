@@ -16,6 +16,7 @@ A player, called "Sapper" in the game, is asked to de-mine a bridge, that has be
 
 # How to run an app:
 
+- In the terminal, run `npm install`.
 - In the terminal, run `npm start`.
 - It will run the app in the development mode and automatically open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - The page will reload if you make edits and you will also see any errors in the console.
