@@ -2,9 +2,8 @@ import "./App.css";
 import React from "react";
 import axios from "axios";
 import swal from "sweetalert";
-// import { connect } from "react-redux";
-// import { fetchNumbersfromApi } from "./redux/numbers";
-//import Buttons from "./Buttons";
+import Buttons from "./Buttons";
+import ColorsMap from "./ColorsMap";
 
 class App extends React.Component {
   constructor() {
@@ -18,57 +17,7 @@ class App extends React.Component {
       attempts: 0,
       history: [],
       secretCode: [],
-
-      colorMap: {
-        0: (
-          <i
-            className="fas fa-bomb"
-            style={{ color: "blue", fontSize: "40px" }}
-          ></i>
-        ),
-        1: (
-          <i
-            className="fas fa-bomb"
-            style={{ color: "green", fontSize: "40px" }}
-          ></i>
-        ),
-        2: (
-          <i
-            className="fas fa-bomb"
-            style={{ color: "yellow", fontSize: "40px" }}
-          ></i>
-        ),
-        3: (
-          <i
-            className="fas fa-bomb"
-            style={{ color: "red", fontSize: "40px" }}
-          ></i>
-        ),
-        4: (
-          <i
-            className="fas fa-bomb"
-            style={{ color: "black", fontSize: "40px" }}
-          ></i>
-        ),
-        5: (
-          <i
-            className="fas fa-bomb"
-            style={{ color: "orange", fontSize: "40px" }}
-          ></i>
-        ),
-        6: (
-          <i
-            className="fas fa-bomb"
-            style={{ color: "purple", fontSize: "40px" }}
-          ></i>
-        ),
-        7: (
-          <i
-            className="fas fa-bomb"
-            style={{ color: "brown", fontSize: "40px" }}
-          ></i>
-        ),
-      },
+      colorMap: ColorsMap,
     };
   }
 
@@ -90,7 +39,7 @@ class App extends React.Component {
     this.fetchData();
   }
 
-  handleClick = (num) => {
+  handleColorClick = (num) => {
     const { guessInputs, secretCode } = this.state;
     let newGuessInputs = Object.assign({}, guessInputs);
     let newuserInputs = newGuessInputs.userInput;
@@ -102,6 +51,7 @@ class App extends React.Component {
     } else {
       return;
     }
+
     if (newuserInputs.length === 4) {
       newuserInputs.forEach((num, i) => {
         if (copySecretCode.includes(num)) {
@@ -120,7 +70,7 @@ class App extends React.Component {
     }
   };
 
-  handleCheckClick = () => {
+  handleDemineClick = () => {
     const { guessInputs, history } = this.state;
     let numberOfAttempts = this.state.attempts;
     numberOfAttempts++;
@@ -197,8 +147,8 @@ class App extends React.Component {
   render() {
     console.log("secretCode", this.state.secretCode);
     console.log("guessInputs", this.state.guessInputs.userInput);
-    console.log("ATTEMPTS:", this.state.attempts);
-    console.log(`history`, this.state.history);
+    // console.log("ATTEMPTS:", this.state.attempts);
+    // console.log(`history`, this.state.history);
     return (
       <div className="App">
         <header className="menu">
@@ -214,7 +164,7 @@ class App extends React.Component {
           <button className="" onClick={() => this.handleClearClick()}>
             Clear
           </button>
-          <button className="" onClick={() => this.handleCheckClick()}>
+          <button className="" onClick={() => this.handleDemineClick()}>
             De-mine
           </button>
         </div>
@@ -249,63 +199,10 @@ class App extends React.Component {
           })}
         </div>
 
-        <div className="coloredButton">
-          <button
-            className="buttons"
-            style={{ background: "blue" }}
-            onClick={() => this.handleClick("0")}
-          ></button>
-          <button
-            className="buttons"
-            style={{ background: "green" }}
-            onClick={() => this.handleClick("1")}
-          ></button>
-          <button
-            className="buttons"
-            style={{ background: "yellow" }}
-            onClick={() => this.handleClick("2")}
-          ></button>
-          <button
-            className="buttons"
-            style={{ background: "red" }}
-            onClick={() => this.handleClick("3")}
-          ></button>
-          <button
-            className="buttons"
-            style={{ background: "black" }}
-            onClick={() => this.handleClick("4")}
-          ></button>
-          <button
-            className="buttons"
-            style={{ background: "orange" }}
-            onClick={() => this.handleClick("5")}
-          ></button>
-          <button
-            className="buttons"
-            style={{ background: "purple" }}
-            onClick={() => this.handleClick("6")}
-          ></button>
-          <button
-            className="buttons"
-            style={{ background: "brown" }}
-            onClick={() => this.handleClick("7")}
-          ></button>
-        </div>
-        {/* <Buttons handleClick={this.handleClick} /> */}
+        <Buttons handleColorClick={this.handleColorClick} />
       </div>
     );
   }
 }
-// const mapStateToProps = (state) => {
-//   return {
-//     secretCode: state.secretCode,
-//   };
-// };
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     // dispatching plain actions
-//     fetchNumbersfromApi: () => dispatch(fetchNumbersfromApi()),
-//   };
-// };
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
+
 export default App;

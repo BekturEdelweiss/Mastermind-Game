@@ -1,47 +1,47 @@
 import React from "react";
 
-export default function Buttons({ handleClick }) {
+export default function Buttons({ handleColorClick }) {
   return (
     <div className="coloredButton">
       <button
         className="buttons"
         style={{ background: "blue" }}
-        onClick={() => this.handleClick("0")}
+        onClick={() => handleColorClick("0")}
       ></button>
       <button
         className="buttons"
         style={{ background: "green" }}
-        onClick={() => this.handleClick("1")}
+        onClick={() => handleColorClick("1")}
       ></button>
       <button
         className="buttons"
         style={{ background: "yellow" }}
-        onClick={() => this.handleClick("2")}
+        onClick={() => handleColorClick("2")}
       ></button>
       <button
         className="buttons"
         style={{ background: "red" }}
-        onClick={() => this.handleClick("3")}
+        onClick={() => handleColorClick("3")}
       ></button>
       <button
         className="buttons"
         style={{ background: "black" }}
-        onClick={() => this.handleClick("4")}
+        onClick={() => handleColorClick("4")}
       ></button>
       <button
         className="buttons"
         style={{ background: "orange" }}
-        onClick={() => this.handleClick("5")}
+        onClick={() => handleColorClick("5")}
       ></button>
       <button
         className="buttons"
         style={{ background: "purple" }}
-        onClick={() => this.handleClick("6")}
+        onClick={() => handleColorClick("6")}
       ></button>
       <button
         className="buttons"
         style={{ background: "brown" }}
-        onClick={() => this.handleClick("7")}
+        onClick={() => handleColorClick("7")}
       ></button>
     </div>
   );
