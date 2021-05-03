@@ -1,9 +1,12 @@
 import "./App.css";
 import React from "react";
 import axios from "axios";
-import swal from "sweetalert";
 import Buttons from "./Buttons";
 import ColorsMap from "./ColorsMap";
+import { callSwal } from "./helper";
+
+const newGameText =
+  "Our enemies have mined our bridge. As a military engineer, you have to de-mine the bridge. Try to guess the correct color and the correct order of the bombs. You have a total of 10 attemps. FEEDBACK: The RED number shows how many correct colors you have guessed and the BLUE number will show how many correct colors and their correct locations you have guessed. Are you ready?";
 
 class App extends React.Component {
   constructor() {
@@ -76,22 +79,22 @@ class App extends React.Component {
     numberOfAttempts++;
 
     if (numberOfAttempts === 10 && this.state.guessInputs.valueMatch !== 4) {
-      return swal({
-        title: "The bridge has exploded!",
-        text: "You let us down, Sapper...",
-        icon: "error",
-        button: "I'm sorry, sir",
-      });
+      callSwal(
+        "The bridge has exploded!",
+        "You let us down, Sapper...",
+        "error",
+        "I'm sorry, sir"
+      );
     } else if (
       this.state.guessInputs.valueMatch === 4 &&
       this.state.guessInputs.indexMatch === 4
     ) {
-      return swal({
-        title: "The bridge is de-mined.",
-        text: "Congratulations, Sapper!",
-        icon: "success",
-        button: "Glad to serve!",
-      });
+      callSwal(
+        "The bridge is de-mined.",
+        "Congratulations, Sapper!",
+        "success",
+        "Glad to serve!"
+      );
     }
 
     let newHistory = [...history, guessInputs];
@@ -106,13 +109,13 @@ class App extends React.Component {
   };
 
   handleNewGameClick = () => {
-    swal({
-      title: "Salute, Sapper! Here is the deal:",
-      text:
-        "Our enemies have mined our bridge. As a military engineer, you have to de-mine the bridge. Try to guess the correct color and the correct order of the bombs. You have a total of 10 attemps. FEEDBACK: The RED number shows how many correct colors you have guessed and the BLUE number will show how many correct colors and their correct locations you have guessed. Are you ready?",
-      dangerMode: true,
-      button: "Yes, sir!",
-    });
+    callSwal(
+      "Salute, Sapper! Here is the deal:",
+      newGameText,
+      null,
+      "Yes, sir!",
+      true
+    );
 
     this.fetchData();
 
@@ -145,10 +148,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log("secretCode", this.state.secretCode);
-    console.log("guessInputs", this.state.guessInputs.userInput);
-    // console.log("ATTEMPTS:", this.state.attempts);
-    // console.log(`history`, this.state.history);
     return (
       <div className="App">
         <header className="menu">
