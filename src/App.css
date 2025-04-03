@@ -20,6 +20,14 @@ header {
   font-family: "Copperplate";
   font-weight: 800;
 }
+
+.hints {
+  margin-bottom: 5px;
+  padding: 0 200px;
+  font-family: "Copperplate";
+  font-weight: 800;
+}
+
 .menu > button {
   color: whitesmoke;
   background-color: seagreen;

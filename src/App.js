@@ -167,10 +167,14 @@ class App extends React.Component {
             De-mine
           </button>
         </div>
-        <div className="menu">
+        <div className="hints">
           <p style={{ color: "DarkGreen" }}>
             {" "}
             SAPPER, YOU HAVE {10 - this.state.attempts} ATTEMPTS LEFT
+          </p>
+          <p style={{ color: "Black" }}>
+            {" "}
+            (Hint: Red number shows correct colors and Blue number shows correct locations)
           </p>
         </div>
 
