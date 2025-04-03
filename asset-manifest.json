@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Mastermind-Game/static/css/main.7cb97083.chunk.css",
+    "main.js": "/Mastermind-Game/static/js/main.cd30a239.chunk.js",
+    "main.js.map": "/Mastermind-Game/static/js/main.cd30a239.chunk.js.map",
+    "runtime-main.js": "/Mastermind-Game/static/js/runtime-main.de2847b0.js",
+    "runtime-main.js.map": "/Mastermind-Game/static/js/runtime-main.de2847b0.js.map",
+    "static/js/2.319f4ae5.chunk.js": "/Mastermind-Game/static/js/2.319f4ae5.chunk.js",
+    "static/js/2.319f4ae5.chunk.js.map": "/Mastermind-Game/static/js/2.319f4ae5.chunk.js.map",
+    "static/js/3.1a4ed86b.chunk.js": "/Mastermind-Game/static/js/3.1a4ed86b.chunk.js",
+    "static/js/3.1a4ed86b.chunk.js.map": "/Mastermind-Game/static/js/3.1a4ed86b.chunk.js.map",
+    "index.html": "/Mastermind-Game/index.html",
+    "static/css/main.7cb97083.chunk.css.map": "/Mastermind-Game/static/css/main.7cb97083.chunk.css.map",
+    "static/js/2.319f4ae5.chunk.js.LICENSE.txt": "/Mastermind-Game/static/js/2.319f4ae5.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.de2847b0.js",
+    "static/js/2.319f4ae5.chunk.js",
+    "static/css/main.7cb97083.chunk.css",
+    "static/js/main.cd30a239.chunk.js"
+  ]
+}
