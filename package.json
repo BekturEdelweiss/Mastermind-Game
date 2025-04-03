@@ -1,8 +1,8 @@
 {
   "name": "mastermindgame",
+  "homepage": "https://bekturedelweiss.github.io/Mastermind-Game",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bekturedelweiss.github.io/Mastermind-Game",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
