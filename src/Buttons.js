@@ -6,7 +6,11 @@ export default function Buttons({ handleColorClick }) {
       <button
         className="buttons"
         style={{ background: "blue" }}
+<<<<<<< HEAD
         onClick={() => handleColorClick("0")}
+=======
+        onClick={() => ("0")}
+>>>>>>> e1936950 (fix icons)
       ></button>
       <button
         className="buttons"
