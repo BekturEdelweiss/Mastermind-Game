@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBomb } from "@fortawesome/free-solid-svg-icons";
 
 const ColorsMap = {
-  0: <FontAwesomeIcon icon={faBomb} style={{ color: "deepskyblue", fontSize: "40px" }} />,
+  0: <FontAwesomeIcon icon={faBomb} style={{ color: "blue", fontSize: "40px" }} />,
   1: <FontAwesomeIcon icon={faBomb} style={{ color: "green", fontSize: "40px" }} />,
   2: <FontAwesomeIcon icon={faBomb} style={{ color: "yellow", fontSize: "40px" }} />,
   3: <FontAwesomeIcon icon={faBomb} style={{ color: "red", fontSize: "40px" }} />,
